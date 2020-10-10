@@ -3,7 +3,7 @@ class View{
 
     public static function render($view, $data, $titleView = null){
         // Convertir array asociativo a objeto
-        require_once CONFIG.'umbrella_style.php';
+        // require_once CONFIG.'umbrella_style.php';
         $data = to_object($data);
 
         if($view == '/'){

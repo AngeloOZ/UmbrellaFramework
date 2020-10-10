@@ -16,18 +16,12 @@
             <div class="img">
                 <img src="<?php echo IMAGES.'umbrella.png' ?>" alt="">
             </div>
-            <h1 class="title">Umbrella Framework</h1>
+            <h1 class="title"><span class="color-404">404</span><br>Página no encontrada</h1>
         </div>
         <div class="contenido">
-            <p>Umbrella es un framework de estudiantes para estudiantes que te ayudará con tus proyectos personales o profesionales. Ligero, rápido y seguro, intuitivo y fácil de aprender</p>
-            <ul>
-                <li>Desarrollado con PHP 7.4</li>
-                <li>Integrable con tu Frontend</li>
-                <li>Utilizando patrón MVC</li>
-                <li>100% escalable y personalizable</li>
-            </ul>
+            <p class="text-404">Wooow entraste a una zona peligrosa y estas en riesgo de infeccion </p>
             <div class="botones">
-                <a href="https://github.com/AngeloOZ/BeeFramework" class="btn"  target="_blanck"><i class="fab fa-github"></i>GitHub</a>
+                <a href="<?php echo URL ?>" class="btn back"><i class="fab fa-github"></i>Regresar a salvo</a>
             </div>
         </div>
         <footer>

@@ -24,8 +24,7 @@ define('LANG', 'es');
 * obtenida mediante substr($_SERVER['REQUEST_URI'], 1)
 * Si da error modificarla manualmente
 */ 
-define('BASEPATH', IS_LOCAL? substr($_SERVER['REQUEST_URI'], 1): '__BASEPATH_PRODUCTION');
-
+define('BASEPATH', IS_LOCAL ?  (explode('/',$_SERVER['REQUEST_URI']))[1].'/': '__BASEPATH_PRODUCTION');
 /*
 * Salt del sistema puede ser opcional
 */

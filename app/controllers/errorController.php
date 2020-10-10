@@ -7,6 +7,6 @@ class errorController{
 
     function index(){
         $data = array('title' => 'Error', 'bg' =>'dark');
-        view::render('404',$data);
+        view::render('error/404',$data);
     }
 }

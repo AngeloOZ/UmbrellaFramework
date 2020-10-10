@@ -5,7 +5,7 @@ class homeController implements Controller{
     }
 
     function index(){
-        $data = ["title" => ""];
-        View::render("home/",$data,"");
+        $data = ["title" => "", "bg" =>'dark'];
+        View::render("/",$data,"");
     }
 }

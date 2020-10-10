@@ -2,10 +2,97 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: unset;
-    color: unset;
+    color: #fff;
+    font-family: sans-serif;
 }
-div{
-    height: 100px;
-    width: 100px;
+img{
+    max-width: 100%;
+}
+.container{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+.logo{
+    width: 500px;
+}
+.logo .img{
+    margin: auto;
+    width: 150px;
+    animation: logoumbrella 5s infinite linear;
+}
+@keyframes logoumbrella{
+    0%{
+        transform: rotate(0);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+.logo .title{
+    /* text-transform: uppercase; */
+    text-align: center;
+    letter-spacing: 1px;
+}
+.bg-gradient {
+    background: rgba(38, 38, 38, 1);
+    background: -moz-linear-gradient(left, rgba(38, 38, 38, 1) 0%, rgba(28, 33, 28, 1) 100%);
+    background: linear-gradient(to right, rgba(38, 38, 38, 1) 0%, rgba(28, 33, 28, 1) 100%);
+}
+.contenido{
+    font-family: 'Roboto', sans-serif;
+    text-align: center;
+    font-weight: 300;
+    width: 500px;
+    letter-spacing: 1px;
+    font-size: 15px;
+}
+.contenido ul{
+    margin: 30px;
+}
+.contenido ul li {
+    margin-bottom: 5px;
+}
+.btn{
+    text-align: center;
+    display: inline-block;
+    text-decoration: none;
+    background-color: #2C974B;
+    width: 150px;
+    padding: 15px 10px;
+    font-size: 20px;
+    color: #fff;
+    border-radius: 5px;
+}
+.btn i{
+    margin-right: 10px;
+    font-size: 25px;
+}
+footer{
+    color: #dddddd;
+    margin-top: 15px;
+    font-family: 'Roboto', sans-serif;
+
+}
+footer span,
+.color-404{
+    color: #ED1C24;
+}
+.color-404{
+    font-size: 45px;
+    letter-spacing: 5px;
+}
+.text-404{
+    margin: 15px 0 25px 0;
+    font-size: 20px;
+    font-weight: 500;
+}
+.back{
+    padding: 0;
+    line-height: 50px;
+    width: 250px;
+    height: 50px;
 }
