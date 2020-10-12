@@ -31,9 +31,18 @@ class CheckEmail{
         $this->email = $email;
     }
     private function getDataUser(){
-        $dato = $this->email;
-        $data = Db::unique($this->NombreTable, $this->campo, $dato);
-        return ($data->rowCount() == 1) ? $data->fetch(PDO::FETCH_ASSOC) : $data->fetchAll(PDO::FETCH_ASSOC);
+        try{
+            $dato = $this->email;
+            $data = Db::unique($this->NombreTable, $this->campo, $dato);
+            if($data->rowCount() > 0){
+                return ($data->rowCount() == 1) ? $data->fetch(PDO::FETCH_ASSOC) : $data->fetchAll(PDO::FETCH_ASSOC);
+            }else{
+                return null;
+            }
+        }
+        catch(Exception $e){
+            echo $e->getMessage();
+        }
         
     }
     private function generateToken(){
@@ -47,6 +56,29 @@ class CheckEmail{
         }
         return null;
     }
+    public function verifyAccount($token){
+        $data = $this->getDataUser();
+        if(!empty($data)){
+            if($data['token_user'] == $token['token']){
+                return true;
+            }else{
+                return false;
+            }
+        }else{
+            return false;
+        }
+    }
+
+    public static function validateAccount($token){
+        $user = to_object($token['user']);
+        $self = new self($user->email);
+        if($self->verifyAccount($token)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static function sendTokenEmail($email){
         $self = new self($email);
         $token = $self->generateToken();

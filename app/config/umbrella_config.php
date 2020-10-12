@@ -61,6 +61,7 @@ define('VIEWS', TEMPLATE.'views'.DS);
 * Rutas de archivos o assets con base URL absoluta
 */
 define('ASSETS', URL.'assets/');
+define('SYSTEM_URL', URL.'app/System/');
 define('CSS', ASSETS.'css/');
 define('FAVICON', ASSETS.'favicon/');
 define('FONTS', ASSETS.'fonts/');
