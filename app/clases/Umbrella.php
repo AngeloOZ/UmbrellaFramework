@@ -29,6 +29,8 @@ class Umbrella{
     */
     private function initSession(){
         if(session_status() == PHP_SESSION_NONE){
+            session_set_cookie_params(60*60*24, '/', null, false, true );
+            session_name('umbrella');
             session_start();
         }
         return;
@@ -66,19 +68,25 @@ class Umbrella{
         return;
     }
 
-    /* Metodo para cargar todos archivos de forma automatica */
+    /*
+    * Metodo para cargar todos archivos de forma automatica 
+    */
     private function initAutoload(){
         require_once CLASES.'Autoloader.php';
         Autoloader::init();
         return;
     }
 
-    /* Crear un nuevo token */
+    /*
+    * Crear un nuevo token 
+    */
     private function init_csrf(){
         $csrf = new Csrf();
     }
 
-    /* Filtrar el url */
+    /*
+    * Filtrar el url 
+    */
     private function filterUrl(){
         if(isset($_GET['uri'])){
             $this->uri = $_GET['uri'];
@@ -89,29 +97,44 @@ class Umbrella{
         }
     }
 
-    /* Metodo para ejecutar y cargar un controlador solicitado por el usuario */
+    /*
+    * Metodo para ejecutar y cargar un controlador solicitado por el usuario 
+    */
     private function dispatch(){
         $this->filterUrl();
-        //Controlador
+
+        /*
+        * Bloque para realizar la verificacion de E-mail
+        */
+        if(isset($_GET['confirm']) && (isset($_GET['token']) && !empty($_GET['token']))){
+            require_once SYSTEM.'VerifyController.php';
+            call_user_func(['VerifyController','index']);
+            return;     
+        }
+
+        /*
+        * Verificar si viene un controlador
+        */
         $currentController = DEFAULT_CONTROLLER;
         if(isset($this->uri[0])){
             $currentController = $this->uri[0];
             unset($this->uri[0]);
         }else{
+            // Redirect::to('home');
             $currentController = DEFAULT_CONTROLLER;
         }
-        /* -------------------------------------------------------------------------- */
-        /*                     Verificamos el Controlador y Clase                     */
-        /* -------------------------------------------------------------------------- */ 
-        //Verificamos si existe una clase con el controlador solicitado
+        /*
+        * Verificamos si existe una clase con el controlador solicitado
+        */
         $controller = $currentController.'Controller';
         if(!class_exists($controller)){
             $controller = DEFAULT_ERROR_CONTROLLER.'Controller'; //ErrorController
             $currentController = DEFAULT_ERROR_CONTROLLER;
         }
-        /* -------------------------------------------------------------------------- */
-        /*                       Verificamos el metodo solicitado                     */
-        /* -------------------------------------------------------------------------- */
+
+        /*
+        * Verificamos el metodo solicitado
+        */
         $currentMethod = DEFAULT_METHOD;
         if(isset($this->uri[1])){
             $method = str_replace('-','_',$this->uri[1]);
@@ -127,12 +150,12 @@ class Umbrella{
         /* Guardando el controlador y el metodo*/
         define('CONTROLLER', $currentController);
         define('METHOD', $currentMethod);
-        /* -------------------------------------------------------------------------- */
-        /*             Ejecucion de un controlador y un metodo solicitado             */
-        /* -------------------------------------------------------------------------- */
+
+        /*
+        * Ejecucion de un controlador y un metodo solicitado 
+        */
         $controller = new $controller;
         $params = array_values(empty($this->uri)? [] : $this->uri);
-
         /* Llamada al metodo */
         if(empty($params)){
             call_user_func([$controller,$currentMethod]);

@@ -9,8 +9,12 @@ class View{
         if($view == '/'){
             $path = VIEWS.'index.php';
             if(!is_file($path)){
-                echo "<p>No se encontro el archivo \"index\" para ser cargado</p><br/>";
-                die;
+                if(IS_LOCAL){
+                    echo "<p>No se encontro el archivo \"index\" para ser cargado</p><br/>";
+                    die;
+                }else{
+                    Redirect::to('404');
+                }
             }
             require_once $path;
             return;
@@ -18,10 +22,14 @@ class View{
             $view = str_replace('/','\\',$view);
             $path = VIEWS.$view.'.php';
             if(!is_file($path)){
-                echo "<p>No se encontro la dirección o archivo: <code>$view</code></p><br/>";
-                echo "<spam>La ruta indicada o el archivo no existe: </spam>";
-                echo "<code>$path</code><br/>";
-                die;
+                if(IS_LOCAL){
+                    echo "<p>No se encontro la dirección o archivo: <code>$view</code></p><br/>";
+                    echo "<spam>La ruta indicada o el archivo no existe: </spam>";
+                    echo "<code>$path</code><br/>";
+                    die;
+                }else{
+                    Redirect::to('404');
+                }
             }
             require_once $path; 
             return;

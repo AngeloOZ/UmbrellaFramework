@@ -14,8 +14,9 @@ class Email{
     function __construct($to, $subject, $message)
     {
         if(is_array($to)){
-            $this->to = $to['email'];
-            $this->toName = $to['name'];
+            (isset($to['email'])) ? $this->to = $to['email'] : die('No se recibio un correo');
+            if(isset($to['name'])) 
+                $this->toName = $to['name'];
         }else{
             $this->to = $to;
         }

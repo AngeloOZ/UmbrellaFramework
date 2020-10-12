@@ -34,7 +34,8 @@ define('AUTH_SALT', 'una_super_sal_del_sistema');
 * Puerto y la URL del sitio
 * Definir puerto, por defecto 80
 */
-define('PORT','8848');
+define('PORT','80');
+// define('PORT','8848');
 define('URL',IS_LOCAL ? 'http://127.0.0.1:'.PORT.'/'.BASEPATH:'__URL_PRODUCCION');
 
 /*
@@ -45,6 +46,7 @@ define('ROOT', getcwd().DS);
 define('APP', ROOT.'app'.DS);
 define('CLASES', APP.'clases'.DS);
 define('PHPMAILER', APP.'PHPMailer'.DS);
+define('SYSTEM', APP.'System'.DS);
 define('CONFIG', APP.'config'.DS);
 define('CONTROLLERS', APP.'controllers'.DS);
 define('FUNCTIONS', APP.'functions'.DS);
@@ -97,8 +99,10 @@ define('DEFAULT_METHOD', 'index');
 /*
 * Configuracion de correo nivel temporal
 */
-define('EMAIL_SENDER', '');
+define('EMAIL_SENDER', 'Umbrella Framework');
 define('EMAIL_USER', 'mysqlremote123@gmail.com');
 define('EMAIL_PASSWORD', 'Milena200');
 define('EMAIL_HOST', 'smtp.gmail.com');
 define('EMAIL_PORT', '587');
+
+// echo URL;
