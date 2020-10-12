@@ -1,6 +1,6 @@
 <?php 
 class VerifyController{
     function index(){
-        echo "hola";
+        require_once SYSTEM.'VerifyView.php';
     }
 }

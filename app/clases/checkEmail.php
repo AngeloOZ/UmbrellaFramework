@@ -47,13 +47,92 @@ class CheckEmail{
         }
         return null;
     }
-    public static function validateEmail($email){
+    public static function sendTokenEmail($email){
         $self = new self($email);
         $token = $self->generateToken();
         if($token !== null){
-            return $token;
+            $to = $email;
+            $subject = "Último paso para activar tu cuenta de ".NAME_PROJECT;
+            $message = "
+            <html>
+            <head>
+                <meta charset='UTF-8'>
+                <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+                <style>
+                    body{
+                        font-family: sans-serif;
+                        width: 90%;
+                        margin: auto;
+                    }
+                    h1{
+                        padding: 0;
+                        margin-left: 10px;
+                        font-size: 20px;
+                    }
+                    .logo{
+                        width: 200px;
+                        display: flex;
+                        align-items: center;
+                        padding-left: 10px;
+                        margin-top: 20px;
+                    }
+                    .logo img{
+                        max-width: 100%;
+                        width: 50px;
+                        height: 50px;
+                    }
+                    .correo{
+                        font-size: 25px;
+                        color: #c5c5c5;
+                    }
+                    .contenido{
+                        /* width: 90%; */
+                        margin: auto;
+                        padding: 0 15px;
+                    }
+                    .btn{
+                        display: block;
+                        background-color: #ED1C24;
+                        height: 50px;
+                        width: 210px;
+                        text-align: center;
+                        text-decoration: none;
+                        color: #fff;
+                    }
+                    .text{
+                        line-height: 25px;
+                    }
+                    .enlace{
+                        color: #ED1C24;
+                    }
+                </style>
+            </head>
+            <body>
+                <div class='logo'>
+                    <img src='https://lezebre.lu/images/detailed/28/80256-sticker-Umbrella-Corporation-Resident-Evil.png' alt='logo umbrella'>
+                    <h1>".NAME_PROJECT."</h1>
+                </div>
+                <div class='contenido'>
+                    <p class='correo' >{$email}</p>
+                    <p class='text'>Te falta un paso para activar tu cuenta de ".NAME_PROJECT.". Haz clic en el siguiente botón para confirmar tu dirección de correo electrónico:</p>
+                    <a href='".URL."?confirm&token={$token}' target='_blanck' class='btn'>Confirmar mi correo electrónico</a>
+                    <p class='text'>¿No funcionó? Copia el siguiente enlace en tu navegador web:</p>
+                    <p class='enlace'>".URL."?confirm&token={$token}</p>
+                    <footer>
+                        Saludos cordiales,<br>
+                        — El Equipo ".NAME_PROJECT."
+                    </footer>
+                </div>
+            </body>
+            </html>
+            ";
+            if(Email::sendMail($to,$subject,$message)){
+                return true;
+            }else{
+                return false;
+            }
         }else{
-            return "error";
+            return false;
         }
     }
 }

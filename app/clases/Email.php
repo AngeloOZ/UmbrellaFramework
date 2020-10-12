@@ -52,7 +52,7 @@ class Email{
             $mail->Body    = $self->message;
 
             if($mail->send()){
-                return 'ok';
+                return true;
             }
         } catch (Exception $e) {
             return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
